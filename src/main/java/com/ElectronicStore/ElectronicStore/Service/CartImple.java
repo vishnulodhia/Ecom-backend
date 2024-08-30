@@ -74,7 +74,7 @@ public class CartImple implements CartService {
      return items;
       }).collect(Collectors.toList());
       System.out.println("updated: "+ updated);
-      if(updated.get()==true)
+      if(updated.get())
       cart.setItems(updatedItems);
 
      }
@@ -101,18 +101,20 @@ public class CartImple implements CartService {
 
     @Override
     public void clearCart(long UserId) {
-
-     User user = userRepositories.findById(UserId).orElseThrow(()-> new ResourceNotFoundException("User not found exception"));
-     Cart cart = cartRepositories.findByuser(user).orElseThrow(()-> new ResourceNotFoundException("Cart of given user not found"));
-     cart.getItems().clear();
-     cartRepositories.save(cart);
-
+      User user = userRepositories.findById(UserId).orElseThrow(() -> new ResourceNotFoundException("User not found exception"));
+      Cart cart = cartRepositories.findByuser(user).orElseThrow(() -> new ResourceNotFoundException("Cart of given user not found"));
+      cart.getItems().clear();
+      System.out.println("Cart:"+cart.getItems());
+      System.out.println("Cart:"+cart);
+      cartRepositories.save(cart);
     }
 
  @Override
  public CartDto fetchCart(long userId) {
-  User user = userRepositories.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found exception"));
- Cart cart =  cartRepositories.findByuser(user).orElseThrow(()-> new ResourceNotFoundException("Cart of given user not found"));
+
+      User user = userRepositories.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found exception"));
+       Cart cart =  cartRepositories.findByuser(user).orElseThrow(()-> new ResourceNotFoundException("Cart of given user not found"));
+
 
 
   return modelMapper.map(cart,CartDto.class);

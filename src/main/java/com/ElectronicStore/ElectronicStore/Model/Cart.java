@@ -27,6 +27,6 @@ public class Cart {
     @JoinColumn(name = "user_id" )
     private User user;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private List<CartItem> items  = new ArrayList<>();
 }

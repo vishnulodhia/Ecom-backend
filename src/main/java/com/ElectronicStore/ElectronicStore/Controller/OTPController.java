@@ -25,7 +25,7 @@ public class OTPController {
           return new ResponseEntity<>(message, HttpStatus.OK);
         }
        catch (Exception e){
-           e.printStackTrace();
+
            APiResponseMessage message =APiResponseMessage.builder().success(false).message(e.getMessage()).status(HttpStatus.INTERNAL_SERVER_ERROR).build();
            return new ResponseEntity<>(message,HttpStatus.INTERNAL_SERVER_ERROR);
        }

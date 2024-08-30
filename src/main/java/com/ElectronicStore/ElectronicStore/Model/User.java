@@ -40,8 +40,6 @@ public class User implements UserDetails {
     @Column(name = "User_phoneno",length=10,unique = true,nullable = false)
     private String phoneno;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Orders> orders = new ArrayList<>();
 
    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
    private List<Role> role;

@@ -37,7 +37,7 @@ public class CartController {
     }
 
 
-    @DeleteMapping("removeItemFromCart/{itemId}")
+    @GetMapping("removeItemFromCart/{itemId}")
     public ResponseEntity<APiResponseMessage> removeItemFromCart(@PathVariable long itemId){
         cartService.removeItemFromCart(itemId);
         APiResponseMessage response = APiResponseMessage.builder()
@@ -48,7 +48,7 @@ public class CartController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("clearCart/{userId}")
+    @GetMapping("clearCart/{userId}")
     public ResponseEntity<APiResponseMessage> clearCart(@PathVariable long userId){
         cartService.clearCart(userId);
         APiResponseMessage response = APiResponseMessage.builder()
@@ -63,7 +63,6 @@ public class CartController {
     public ResponseEntity<CartDto> getCart(@PathVariable long userId){
         return new ResponseEntity<>(cartService.fetchCart(userId), HttpStatus.OK);
     }
-
 
 
 

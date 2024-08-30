@@ -51,10 +51,16 @@ public class OrderServiceImpl implements OrderService {
     User user =userRepositories.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user not found exception"));
     System.out.println("CartId:"+cartId);
     Cart cart = cartRepositories.findById(cartId).orElseThrow(()->new ResourceNotFoundException("cart not found exception"));
-    List<CartItem> cartItems = cart.getItems();
+    List<CartItem> cartItems = cart.getItems().stream().filter(cartItem -> cartItem.getQuantity()<= cartItem.getProduct().getProductQuantity()).toList();
 
     if(cartItems.size() <=0)
         throw new BadApiRequest("Invalid number of items in cart");
+
+    for(CartItem cartItem:cartItems){
+       Product product =  cartItem.getProduct();
+       product.setProductQuantity(product.getProductQuantity()- cartItem.getQuantity());
+       productRepository.save(product);
+    }
 
         Orders order = Orders.builder()
                 .phoneNo(createOrderRequest.getPhoneNo())
@@ -79,7 +85,9 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderAmount(orderAmount.get());
         order.setOrderItems(orderItems);
         cart.getItems().clear();
+        System.out.println("Cart");
         cartRepositories.save(cart);
+
         return modelMapper.map(orderRepository.save(order),OrdersDto.class);
     }
 

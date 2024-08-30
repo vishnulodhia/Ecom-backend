@@ -40,7 +40,7 @@ public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/findAllUser")
     public ResponseEntity<PageableResponse<UserDto>> findAllUser(@RequestParam(value = "PageNumber" , defaultValue = "0" , required = false) int PageNumber, @RequestParam(value = "PageSize" , defaultValue = "10" , required = false) int PageSize, @RequestParam(value = "SortBy" , defaultValue = "name" , required = false) String SortBy, @RequestParam(value = "SortDir" , defaultValue = "asc" , required = false) String SortDir ){
        System.out.println("PageNumber " + PageNumber+"PageSize"+PageSize);
@@ -62,7 +62,7 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         catch(Exception e){
-            e.printStackTrace();
+            logger.error(e.toString());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -76,7 +76,7 @@ public class UserController {
             return new ResponseEntity<>(users, HttpStatus.OK);
         }
         catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.toString());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
