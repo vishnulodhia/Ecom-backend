@@ -25,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
         System.out.println("THIS IS WORKING :::  " + username);
 
             User  user = userRepositories.findByEmail(username)
-                      .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                      .orElseThrow(() -> new ResourceNotFoundException("User not found fuck off"));
               System.out.println("User:" + user.getAuthorities());
 
              return user;

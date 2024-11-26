@@ -22,7 +22,8 @@ public class JwtHelper {
 
     //retrieve username from jwt token
     public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
+        final Claims claims = getAllClaimsFromToken(token);
+        return String.valueOf(claims.get("email"));
     }
 
     //retrieve expiration date from jwt token
@@ -32,6 +33,7 @@ public class JwtHelper {
 
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
+        System.out.print("getClaimFromToken"+claims);
         return claimsResolver.apply(claims);
     }
 
@@ -48,6 +50,7 @@ public class JwtHelper {
     public String generateToken(User userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId",Long.toString(userDetails.getUserId()));
+        claims.put("email",userDetails.getEmail());
         return doGenerateToken(claims);
     }
 
