@@ -4,12 +4,9 @@ import com.ElectronicStore.ElectronicStore.Exception.ResourceNotFoundException;
 import com.ElectronicStore.ElectronicStore.Model.User;
 import com.ElectronicStore.ElectronicStore.Repositories.UserRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -27,8 +24,8 @@ public class CustomUserDetailService implements UserDetailsService {
         // Log the username for debugging purposes
         System.out.println("THIS IS WORKING :::  " + username);
 
-            User  user = userRepositories.findByName(username)
-                      .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            User  user = userRepositories.findByEmail(username)
+                      .orElseThrow(() -> new ResourceNotFoundException("User not found fuck off"));
               System.out.println("User:" + user.getAuthorities());
 
              return user;
